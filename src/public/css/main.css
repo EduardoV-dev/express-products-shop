@@ -1,0 +1,66 @@
+/* 
+
+  SUMMARY
+  
+  1. Variables
+  2. General
+  3. Layout
+
+*/
+
+/* 1. Variables */
+
+:root {
+  /* Colors */
+  --main-color: #00695c;
+  --text-dark: #333;
+  --text-light: #f2f2f2;
+
+  /* Background */
+  --background: #f2f2f2;
+
+  /* Miscellaneous */
+  --transition-time: 0.3s;
+}
+
+/* 2. General */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+li a {
+  font-size: 1.2rem;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+li a:hover,
+li a:focus {
+}
+
+li a.active {
+}
+
+/* 3. Layout */
+
+.header {
+  background-color: var(--main-color);
+}
+
+.header .navbar {
+  padding: 1rem;
+}
+
+.header .navbar > ul li ul {
+  display: none;
+}
