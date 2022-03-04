@@ -15,9 +15,14 @@
   --main-color: #00695c;
   --text-dark: #333;
   --text-light: #f2f2f2;
+  --text-active: #cceb3b;
 
   /* Background */
   --background: #f2f2f2;
+  --background-white: #fff;
+
+  /* Borders */
+  --border: #ccc;
 
   /* Miscellaneous */
   --transition-time: 0.3s;
@@ -33,22 +38,34 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--background);
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
 ul {
   list-style: none;
 }
 
-li a {
+li {
+  position: relative;
+}
+
+ul li a,
+ul li {
   font-size: 1.2rem;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   color: var(--text-light);
   text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-time) ease-out;
 }
 
-li a:hover,
-li a:focus {
-}
-
-li a.active {
+ul li a:hover,
+ul li a:focus,
+ul li a.active,
+.header .navbar-submenu li a:hover,
+.header .navbar-submenu li a:focus {
+  color: var(--text-active);
 }
 
 /* 3. Layout */
@@ -61,6 +78,38 @@ li a.active {
   padding: 1rem;
 }
 
-.header .navbar > ul li ul {
-  display: none;
+.header .navbar > ul {
+  display: flex;
+}
+
+.header .navbar > ul li {
+  margin-right: 1rem;
+}
+
+.header .navbar-submenu {
+  width: max-content;
+  flex-direction: column;
+  background-color: var(--background-white);
+  position: absolute;
+  top: 25px;
+  left: 0;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-time) ease;
+}
+
+.header .navbar-submenu li {
+  margin-bottom: 0.5rem;
+}
+
+.header .navbar-submenu li a {
+  color: var(--text-dark);
+}
+
+.header .navbar ul > li:hover .navbar-submenu,
+.header .navbar ul > li:focus .navbar-submenu {
+  opacity: 1;
+  visibility: visible;
 }
