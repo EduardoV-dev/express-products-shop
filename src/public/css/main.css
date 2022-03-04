@@ -5,6 +5,7 @@
   1. Variables
   2. General
   3. Layout
+  4. Forms
 
 */
 
@@ -17,6 +18,7 @@
   --text-dark: #333;
   --text-light: #f2f2f2;
   --text-active: #cceb3b;
+  --border-gray-color: #ccc;
 
   /* Background */
   --background: #f2f2f2;
@@ -24,11 +26,16 @@
 
   /* Sizes */
   --card-width: 300px;
-  --card-height: 200px;
+  --card-img-height: 200px;
   --cart-width: 600px;
+  --textarea-height: 150px;
+
+  /* Fonts */
+  --main-fonts: 'Roboto', Arial, Helvetica, sans-serif;
 
   /* Borders */
-  --border: #ccc;
+  --border-gray: 1px solid var(--border-gray-color);
+  --border-main: 2px solid var(--main-color);
 
   /* Shadows */
   --shadow: 1px 1px 1px #ccc;
@@ -79,6 +86,12 @@ ul li a.active,
   color: var(--text-active);
 }
 
+input,
+textarea {
+  border: none;
+  outline: none;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(
@@ -93,6 +106,16 @@ ul li a.active,
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#add-product-form {
+  width: 100%;
+  max-width: var(--card-width);
+  margin: 1rem auto 0;
+}
+
+#add-product-form button[type='submit'] {
+  margin-top: 2rem;
 }
 
 /* 3. Layout */
@@ -150,4 +173,41 @@ ul li a.active,
 
 .main {
   padding: 1rem;
+}
+
+/* 4. Forms */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+  border: var(--border-gray);
+  padding: 0.5rem;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border: var(--border-main);
+  box-shadow: var(--shadow);
+}
+
+.form-group textarea {
+  min-height: calc(var(--textarea-height) * 0.5);
+  height: var(--textarea-height);
+  max-height: calc(var(--textarea-height) * 2);
+  resize: vertical;
 }

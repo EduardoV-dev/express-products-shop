@@ -26,7 +26,7 @@
 .card img {
   width: 100%;
   max-width: var(--card-width);
-  max-height: var(--card-height);
+  max-height: var(--card-img-height);
   object-fit: cover;
   margin-bottom: 1rem;
 }
@@ -62,7 +62,9 @@
   border: none;
   outline: none;
   padding: 0.5rem 1rem;
+  font-size: 1rem;
   text-decoration: none;
+  cursor: pointer;
   transition: all var(--transition-time) ease;
 }
 
@@ -100,7 +102,7 @@
   max-width: var(--cart-width);
   padding: 0.5rem 1rem;
   box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+  border: var(--border-gray);
 }
 
 .cart p {
