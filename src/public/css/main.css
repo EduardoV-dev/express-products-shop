@@ -13,6 +13,7 @@
 :root {
   /* Colors */
   --main-color: #00695c;
+  --danger-color: #ff0000;
   --text-dark: #333;
   --text-light: #f2f2f2;
   --text-active: #cceb3b;
@@ -21,10 +22,19 @@
   --background: #f2f2f2;
   --background-white: #fff;
 
+  /* Sizes */
+  --card-width: 300px;
+  --card-height: 200px;
+  --cart-width: 600px;
+
   /* Borders */
   --border: #ccc;
 
+  /* Shadows */
+  --shadow: 1px 1px 1px #ccc;
+
   /* Miscellaneous */
+  --header-z-index: 10;
   --transition-time: 0.3s;
 }
 
@@ -41,6 +51,7 @@
 body {
   background-color: var(--background);
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  color: var(--text-dark);
 }
 
 ul {
@@ -53,7 +64,7 @@ li {
 
 ul li a,
 ul li {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--text-light);
   text-decoration: none;
   cursor: pointer;
@@ -68,10 +79,29 @@ ul li a.active,
   color: var(--text-active);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--card-width)), 1fr)
+  );
+  gap: 1rem;
+  justify-items: center;
+}
+
+#cart-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* 3. Layout */
 
 .header {
   background-color: var(--main-color);
+  position: sticky;
+  top: 0;
+  z-index: var(--header-z-index);
 }
 
 .header .navbar {
@@ -104,6 +134,10 @@ ul li a.active,
   margin-bottom: 0.5rem;
 }
 
+.header .navbar-submenu li:last-child {
+  margin-bottom: 0;
+}
+
 .header .navbar-submenu li a {
   color: var(--text-dark);
 }
@@ -112,4 +146,8 @@ ul li a.active,
 .header .navbar ul > li:focus .navbar-submenu {
   opacity: 1;
   visibility: visible;
+}
+
+.main {
+  padding: 1rem;
 }
