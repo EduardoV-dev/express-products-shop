@@ -1,4 +1,5 @@
 const { engine } = require('express-handlebars');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 const hbsConfig = {
@@ -8,6 +9,7 @@ const hbsConfig = {
 };
 
 module.exports = (app, express) => {
+  app.use(bodyParser.urlencoded({ extended: false }));
   app.use(express.static(path.join(__dirname, '..', 'public')));
   app.engine('hbs', engine(hbsConfig));
   app.set('view engine', 'hbs');

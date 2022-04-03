@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "The Dark Knight Rises",
+    "imageURL": "https://placekitten.com/150",
+    "price": "9.99",
+    "description": "A great book about Batman and his rise to the top of the world."
+  },
+  {
+    "id": 2,
+    "title": "New product",
+    "imageURL": "https://placekitten.com/150",
+    "price": "51",
+    "description": "Hello world"
+  },
+  {
+    "id": 3,
+    "title": "Cat ",
+    "imageURL": "https://placekitten.com/150",
+    "price": "512",
+    "description": "Cat"
+  }
+]

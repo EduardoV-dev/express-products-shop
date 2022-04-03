@@ -17,5 +17,6 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': RULES.WARN,
+    'class-methods-use-this': RULES.OFF,
   },
 };

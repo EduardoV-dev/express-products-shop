@@ -1,16 +1,10 @@
 const express = require('express');
 const { SHOP } = require('../config/views');
+const { getShopProducts, getCart } = require('../controllers/shop');
 
 const router = express.Router();
 
-router.get(SHOP.PRODUCTS.PATH, (req, res) => {
-  res.render(SHOP.PRODUCTS.VIEW, {
-    title: SHOP.PRODUCTS.TITLE,
-  });
-});
-
-router.get(SHOP.CART.PATH, (req, res) => {
-  res.render(SHOP.CART.VIEW, { title: SHOP.CART.TITLE });
-});
+router.get(SHOP.PRODUCTS.PATH, getShopProducts);
+router.get(SHOP.CART.PATH, getCart);
 
 module.exports = router;

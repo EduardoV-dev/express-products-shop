@@ -6,7 +6,9 @@ const app = express();
 configEnv(app, express);
 
 app.get('/', (req, res) => res.redirect('/shop/products'));
-app.use('/shop', shop);
-app.use('/admin', admin);
+
+/* Routes */
+app.use(shop);
+app.use(admin);
 
 app.listen('3001');

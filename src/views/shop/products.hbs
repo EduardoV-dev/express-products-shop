@@ -1,52 +1,13 @@
 <div class="grid">
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-      <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
+  {{#each products}}
+    <div class="card">
+      <h3>{{title}}</h3>
+      <img src="{{imageURL}}" alt="{{title}}" />
+      <span>$ {{price}}</span>
+      <p>{{description}}</p>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
+        <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-      <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-      <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-      <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-      <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
-    </div>
-  </div>
-</div>
+  {{/each}}
