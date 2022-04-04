@@ -1,11 +1,23 @@
 const fs = require('fs');
-const { PRODUCTS_FILE_PATH } = require('../consts/filesPath');
 
-exports.getProductsFromFile = cb =>
-  fs.readFile(PRODUCTS_FILE_PATH, 'utf8', (err, data) => {
-    if (err) return cb([]);
-    return cb(JSON.parse(data));
-  });
+exports.getData = path => {
+  try {
+    const data = JSON.parse(fs.readFileSync(path, 'utf8'));
+    return data;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    return [];
+  }
+};
 
-exports.getProductsLastId = cb =>
-  this.getProductsFromFile(products => cb(products[products.length - 1].id));
+exports.addData = (path, data) => {
+  try {
+    fs.writeFileSync(path, JSON.stringify(data, null, 2));
+    return true;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    return false;
+  }
+};

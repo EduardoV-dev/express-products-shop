@@ -6,3 +6,5 @@ exports.PRODUCTS_FILE_PATH = path.join(
   'data',
   'products.json',
 );
+
+exports.CART_FILE_PATH = path.join(__dirname, '..', 'data', 'cart.json');

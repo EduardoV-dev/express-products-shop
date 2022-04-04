@@ -7,7 +7,10 @@
       <p>{{description}}</p>
       <div class="card-actions">
         <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-        <a class="btn btn-primary" href="/shop/products/add-to-cart">Add to Cart</a>
+        <form action="/shop/cart" method="POST">
+          <input name="productId" type="hidden" value="{{id}}" />
+          <button type="submit" class="btn btn-primary">Add to Cart</a>
+        </form>
       </div>
     </div>
   {{/each}}

@@ -1,74 +1,16 @@
 <div class="grid">
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-      <form action="/admin/products/delete-product">
-         <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
+  {{#each products}}
+    <div class="card">
+      <h3>{{title}}</h3>
+      <img src="{{imageURL}}" alt="{{title}}" />
+      <span>$ {{price}}</span>
+      <p>{{description}}</p>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
+        <form action="/admin/products/delete-product">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-      <form action="/admin/products/delete-product">
-         <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-      <form action="/admin/products/delete-product">
-         <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-      <form action="/admin/products/delete-product">
-         <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-      <form action="/admin/products/delete-product">
-         <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
-    </div>
-  </div>
-  <div class="card">
-    <h3>A book</h3>
-    <img src="https://placekitten.com/200" alt="Kitten" />
-    <span>$ 19</span>
-    <p>This awesome book</p>
-    <div class="card-actions">
-      <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-      <form action="/admin/products/delete-product">
-         <button class="btn btn-danger" type="submit">Delete</button>
-      </form>
-    </div>
-  </div>
+  {{/each}}
 </div>

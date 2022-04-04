@@ -1,0 +1,12 @@
+[
+  {
+    "id": 2,
+    "title": "New product",
+    "quantity": 3
+  },
+  {
+    "id": 1,
+    "title": "The Dark Knight Rises",
+    "quantity": 2
+  }
+]

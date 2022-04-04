@@ -1,16 +1,7 @@
-const fs = require('fs');
+const { getData, addData } = require('../helpers/files');
 const { PRODUCTS_FILE_PATH } = require('../consts/filesPath');
 
-const getProductsFromFile = () => {
-  try {
-    const products = JSON.parse(fs.readFileSync(PRODUCTS_FILE_PATH, 'utf8'));
-    return products;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-    return [];
-  }
-};
+const getProductsFromFile = () => getData(PRODUCTS_FILE_PATH);
 
 const getProductsNextId = () => {
   const products = getProductsFromFile();
@@ -34,14 +25,13 @@ module.exports = class Product {
     return getProductsFromFile();
   }
 
+  static getProductById(id) {
+    return getProductsFromFile().find(item => item.id === Number(id));
+  }
+
   save() {
     const products = getProductsFromFile();
     products.push(formatProduct(this));
-    try {
-      fs.writeFileSync(PRODUCTS_FILE_PATH, JSON.stringify(products, null, 2));
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
-    }
+    addData(PRODUCTS_FILE_PATH, products);
   }
 };

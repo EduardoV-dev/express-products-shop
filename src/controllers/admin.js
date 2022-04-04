@@ -2,7 +2,8 @@ const { ADMIN, SHOP } = require('../config/views');
 const Product = require('../models/product');
 
 exports.getAdminProducts = (req, res) => {
-  res.render(ADMIN.PRODUCTS.VIEW, { title: ADMIN.PRODUCTS.TITLE });
+  const products = Product.getAllProducts();
+  res.render(ADMIN.PRODUCTS.VIEW, { title: ADMIN.PRODUCTS.TITLE, products });
 };
 
 exports.getAddProductView = (req, res) => {

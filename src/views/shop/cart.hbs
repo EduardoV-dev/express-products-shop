@@ -1,22 +1,12 @@
 <section id="cart-list">
-  <div class="cart">
-    <p>A book</p>
-    <p>Quantity: <span>1</span></p>
-    <a href="/delete-from-cart" class="btn btn-danger">Delete</a>
-  </div>
-  <div class="cart">
-    <p>A book</p>
-    <p>Quantity: <span>1</span></p>
-    <a href="/delete-from-cart" class="btn btn-danger">Delete</a>
-  </div>
-  <div class="cart">
-    <p>A book</p>
-    <p>Quantity: <span>1</span></p>
-    <a href="/delete-from-cart" class="btn btn-danger">Delete</a>
-  </div>
-  <div class="cart">
-    <p>A book</p>
-    <p>Quantity: <span>1</span></p>
-    <a href="/delete-from-cart" class="btn btn-danger">Delete</a>
-  </div>
+  {{#each cart}}
+    <div class="cart">
+      <p>{{title}}</p>
+      <p>Quantity: <span>{{quantity}}</span></p>
+      <form action="/shop/cart" method="DELETE">
+         <input type="hidden" name="productId" value="{{id}}"  />
+         <button type="submit" class="btn btn-danger">Delete</a>
+      </form>
+    </div>
+  {{/each}}
 </section>
