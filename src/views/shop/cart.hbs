@@ -1,12 +1,16 @@
 <section id="cart-list">
-  {{#each cart}}
-    <div class="cart">
-      <p>{{title}}</p>
-      <p>Quantity: <span>{{quantity}}</span></p>
-      <form action="/shop/cart" method="DELETE">
-         <input type="hidden" name="productId" value="{{id}}"  />
-         <button type="submit" class="btn btn-danger">Delete</a>
-      </form>
-    </div>
-  {{/each}}
+  {{#if cart.length}}
+    {{#each cart}}
+      <div class="cart">
+        <p>{{title}}</p>
+        <p>Quantity: <span>{{quantity}}</span></p>
+        <form action="/shop/cart/delete" method="POST">
+          <input type="hidden" name="productId" value="{{id}}"  />
+          <button type="submit" class="btn btn-danger">Delete</a>
+        </form>
+      </div>
+    {{/each}}
+  {{else}}
+    <h2 class="title">No items are in the cart</h2>
+  {{/if}}
 </section>

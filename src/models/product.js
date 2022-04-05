@@ -29,6 +29,14 @@ module.exports = class Product {
     return getProductsFromFile().find(item => item.id === Number(id));
   }
 
+  static deleteProduct(id) {
+    const products = getProductsFromFile();
+    addData(
+      PRODUCTS_FILE_PATH,
+      products.filter(product => product.id !== Number(id)),
+    );
+  }
+
   save() {
     const products = getProductsFromFile();
     products.push(formatProduct(this));

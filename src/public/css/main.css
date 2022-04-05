@@ -118,6 +118,11 @@ textarea {
   margin-top: 2rem;
 }
 
+.title {
+  text-align: center;
+  margin: 2rem 0;
+}
+
 /* 3. Layout */
 
 .header {

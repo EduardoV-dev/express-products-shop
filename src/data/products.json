@@ -7,17 +7,17 @@
     "description": "A great book about Batman and his rise to the top of the world."
   },
   {
-    "id": 2,
-    "title": "New product",
-    "imageURL": "https://placekitten.com/150",
-    "price": "51",
-    "description": "Hello world"
-  },
-  {
     "id": 3,
     "title": "Cat ",
     "imageURL": "https://placekitten.com/150",
     "price": "512",
     "description": "Cat"
+  },
+  {
+    "id": 4,
+    "title": "Amor",
+    "imageURL": "https://placekitten.com/150",
+    "price": "20",
+    "description": "Escrito por Charles Bukowski"
   }
 ]

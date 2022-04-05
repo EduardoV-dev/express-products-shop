@@ -1,0 +1,20 @@
+<form action="{{#if isUpdating}}/admin/add-product{{else}}/admin/edit-product{{/if}}" method="POST" autocomplete="off">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="{{#if isUpdating}} {{title}} {{/if}}" />
+  </div>
+  <div class="form-group">
+    <label for="image-url">Image URL</label>
+    <input type="text" id="image-url" name="imageURL" value="{{#if isUpdating}} {{imageURL}} {{/if}}" />
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="text" id="price" name="price" value="{{#if isUpdating}} {{price}} {{/if}}" />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" value="{{#if isUpdating}} {{description}} {{/if}}" ></textarea>
+  </div>
+  {{#if isUpdating}} <input type="hidden" name="productId" value="{{id}}" /> {{/if}}
+  <button class="btn btn-primary" type="submit">Add Product</button>
+</form>

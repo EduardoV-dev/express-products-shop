@@ -1,4 +1,3 @@
-const views = require('../config/views');
 const { SHOP } = require('../config/views');
 const Product = require('../models/product');
 const Cart = require('../models/cart');
@@ -18,5 +17,13 @@ exports.postAddItemToCart = (req, res) => {
   const { id, title } = Product.getProductById(productId);
   const cartItem = new Cart(id, title);
   cartItem.save();
-  res.redirect(views.SHOP.CART.PATH);
+
+  res.redirect(SHOP.CART.PATH);
+};
+
+exports.deleteCartItem = (req, res) => {
+  const { productId } = req.body;
+  Cart.removeFromCart(productId);
+
+  res.redirect(SHOP.CART.PATH);
 };

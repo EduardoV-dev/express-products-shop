@@ -1,16 +1,21 @@
 <div class="grid">
-  {{#each products}}
-    <div class="card">
-      <h3>{{title}}</h3>
-      <img src="{{imageURL}}" alt="{{title}}" />
-      <span>$ {{price}}</span>
-      <p>{{description}}</p>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
-        <form action="/shop/cart" method="POST">
-          <input name="productId" type="hidden" value="{{id}}" />
-          <button type="submit" class="btn btn-primary">Add to Cart</a>
-        </form>
+  {{#if products.length}}
+    {{#each products}}
+      <div class="card">
+        <h3>{{title}}</h3>
+        <img src="{{imageURL}}" alt="{{title}}" />
+        <span>$ {{price}}</span>
+        <p>{{description}}</p>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="/shop/products/detail/12345">Details</a>
+          <form action="/shop/cart" method="POST">
+            <input name="productId" type="hidden" value="{{id}}" />
+            <button type="submit" class="btn btn-primary">Add to Cart</a>
+          </form>
+        </div>
       </div>
-    </div>
-  {{/each}}
+    {{/each}}
+  {{else}}
+    <h2 class="title">No products available</h2>
+  {{/if}}
+</div>

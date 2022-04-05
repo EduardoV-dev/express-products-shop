@@ -1,16 +1,21 @@
 <div class="grid">
-  {{#each products}}
-    <div class="card">
-      <h3>{{title}}</h3>
-      <img src="{{imageURL}}" alt="{{title}}" />
-      <span>$ {{price}}</span>
-      <p>{{description}}</p>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
-        <form action="/admin/products/delete-product">
-          <button class="btn btn-danger" type="submit">Delete</button>
-        </form>
+  {{#if products.length}}
+    {{#each products}}
+      <div class="card">
+        <h3>{{title}}</h3>
+        <img src="{{imageURL}}" alt="{{title}}" />
+        <span>$ {{price}}</span>
+        <p>{{description}}</p>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="/admin/products/edit">Edit</a>
+          <form action="/admin/products/delete" method="POST">
+            <input type="hidden" name="productId" value="{{id}}" />
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+        </div>
       </div>
-    </div>
-  {{/each}}
+    {{/each}}
+  {{else}}
+    <h2>No products to show</h2>
+  {{/if}}
 </div>

@@ -3,11 +3,26 @@ const Product = require('../models/product');
 
 exports.getAdminProducts = (req, res) => {
   const products = Product.getAllProducts();
-  res.render(ADMIN.PRODUCTS.VIEW, { title: ADMIN.PRODUCTS.TITLE, products });
+  res.render(ADMIN.PRODUCTS.VIEW, {
+    title: ADMIN.PRODUCTS.TITLE,
+    products,
+  });
+};
+
+exports.getEditProductView = (req, res) => {
+  const { productId } = req.body;
+  const product = Product.getProductById(productId);
+
+  res.render(ADMIN.FORM.VIEW, {
+    title: 'Edit product',
+    product,
+    isUpdating: true,
+  });
 };
 
 exports.getAddProductView = (req, res) => {
-  res.render(ADMIN.ADDPRODUCT.VIEW, { title: ADMIN.ADDPRODUCT.TITLE });
+  console.log('render');
+  res.render(ADMIN.FORM.VIEW, { title: ADMIN.FORM.TITLE, isUpdating: false });
 };
 
 exports.postProduct = (req, res) => {
@@ -16,4 +31,11 @@ exports.postProduct = (req, res) => {
   product.save();
 
   res.redirect(SHOP.PRODUCTS.PATH);
+};
+
+exports.deleteProduct = (req, res) => {
+  const { productId } = req.body;
+  Product.deleteProduct(productId);
+
+  res.redirect(ADMIN.PRODUCTS.PATH);
 };

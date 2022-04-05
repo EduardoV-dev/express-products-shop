@@ -17,9 +17,9 @@ module.exports = {
       PATH: '/admin/products',
       TITLE: 'Admin | Products',
     },
-    ADDPRODUCT: {
-      VIEW: 'admin/add-product',
-      PATH: '/admin/add-product',
+    FORM: {
+      VIEW: 'admin/product-form',
+      PATH: '/admin/product-form',
       TITLE: 'Admin | Add Product',
     },
   },

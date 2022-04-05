@@ -10,6 +10,8 @@ const increaseQuantity = productId =>
 const getCartItemById = (cart, productId) =>
   cart.find(item => item.id === Number(productId));
 
+const REMOVE_WILDCARD = 'remove';
+
 module.exports = class Cart {
   constructor(id, title) {
     this.id = id;
@@ -18,6 +20,23 @@ module.exports = class Cart {
 
   static getCart() {
     return getCartFromFile();
+  }
+
+  static removeFromCart(id) {
+    const cart = getCartFromFile();
+    const newCart = cart.map(item => {
+      if (item.id === Number(id))
+        return item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : { id: REMOVE_WILDCARD };
+
+      return item;
+    });
+
+    addData(
+      CART_FILE_PATH,
+      newCart.filter(item => item.id !== REMOVE_WILDCARD),
+    );
   }
 
   save() {
