@@ -108,13 +108,13 @@ textarea {
   align-items: center;
 }
 
-#add-product-form {
+#product-form {
   width: 100%;
   max-width: var(--card-width);
   margin: 1rem auto 0;
 }
 
-#add-product-form button[type='submit'] {
+#product-form button[type='submit'] {
   margin-top: 2rem;
 }
 

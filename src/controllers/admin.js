@@ -10,7 +10,7 @@ exports.getAdminProducts = (req, res) => {
 };
 
 exports.getEditProductView = (req, res) => {
-  const { productId } = req.body;
+  const { productId } = req.params;
   const product = Product.getProductById(productId);
 
   res.render(ADMIN.FORM.VIEW, {
@@ -21,13 +21,17 @@ exports.getEditProductView = (req, res) => {
 };
 
 exports.getAddProductView = (req, res) => {
-  console.log('render');
   res.render(ADMIN.FORM.VIEW, { title: ADMIN.FORM.TITLE, isUpdating: false });
 };
 
 exports.postProduct = (req, res) => {
   const { title, imageURL, price, description } = req.body;
-  const product = new Product(title, imageURL, price, description);
+  const product = new Product(
+    title.trim(),
+    imageURL.trim(),
+    Number(price.trim()),
+    description.trim(),
+  );
   product.save();
 
   res.redirect(SHOP.PRODUCTS.PATH);
@@ -36,6 +40,19 @@ exports.postProduct = (req, res) => {
 exports.deleteProduct = (req, res) => {
   const { productId } = req.body;
   Product.deleteProduct(productId);
+
+  res.redirect(ADMIN.PRODUCTS.PATH);
+};
+
+exports.editProduct = (req, res) => {
+  const { title, imageURL, price, description, productId } = req.body;
+  const newProduct = new Product(
+    title.trim(),
+    imageURL.trim(),
+    Number(price.trim()),
+    description.trim(),
+  );
+  newProduct.edit(productId);
 
   res.redirect(ADMIN.PRODUCTS.PATH);
 };

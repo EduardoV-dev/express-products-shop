@@ -27,3 +27,13 @@ exports.deleteCartItem = (req, res) => {
 
   res.redirect(SHOP.CART.PATH);
 };
+
+exports.getDetailedView = (req, res) => {
+  const { productId } = req.params;
+  const product = Product.getProductById(productId);
+
+  res.render(SHOP.DETAILED_VIEW.VIEW, {
+    title: `${SHOP.DETAILED_VIEW.TITLE} ${product.title}`,
+    product,
+  });
+};

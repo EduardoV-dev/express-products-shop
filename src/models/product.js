@@ -37,6 +37,16 @@ module.exports = class Product {
     );
   }
 
+  edit(id) {
+    const products = getProductsFromFile();
+    addData(
+      PRODUCTS_FILE_PATH,
+      products.map(product =>
+        product.id === Number(id) ? { id: Number(id), ...this } : product,
+      ),
+    );
+  }
+
   save() {
     const products = getProductsFromFile();
     products.push(formatProduct(this));
