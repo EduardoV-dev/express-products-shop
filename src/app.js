@@ -10,6 +10,7 @@ configEnv(app, express);
 app.get('/', (req, res) => res.redirect('/shop/products'));
 
 /* Routes */
+
 app.use(shopRouter);
 app.use(adminRouter);
 app.use(renderErrorPage);
