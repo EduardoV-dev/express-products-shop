@@ -3,7 +3,7 @@
     {{#each cart}}
       <div class="cart">
         <p>{{title}}</p>
-        <p>Quantity: <span>{{quantity}}</span></p>
+        <p>Quantity: <span>{{cartItem.quantity}}</span></p>
         <form action="/shop/cart/delete" method="POST">
           <input type="hidden" name="productId" value="{{id}}"  />
           <button type="submit" class="btn btn-danger">Delete</a>

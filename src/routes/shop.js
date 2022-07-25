@@ -1,22 +1,19 @@
 const express = require('express');
-const { SHOP } = require('../config/views');
-const {
-  getShopProducts,
-  getCart,
-  postAddItemToCart,
-  deleteCartItem,
-  getDetailedView,
-} = require('../controllers/shop');
+
+const { SHOP: VIEWS } = require('../config/views');
+const shop = require('../controllers/shop');
 
 const router = express.Router();
 
 /* Products */
-router.get(SHOP.PRODUCTS.PATH, getShopProducts);
-router.get(SHOP.DETAILED_VIEW.PATH, getDetailedView);
+
+router.get(VIEWS.PRODUCTS.PATH, shop.getShopProducts);
+router.get(VIEWS.DETAILED_VIEW.PATH, shop.getDetailedView);
 
 /* Cart */
-router.get(SHOP.CART.PATH, getCart);
-router.post(SHOP.CART.PATH, postAddItemToCart);
-router.post(`${SHOP.CART.PATH}/delete`, deleteCartItem);
+
+router.get(VIEWS.CART.PATH, shop.getCart);
+router.post(VIEWS.CART.PATH, shop.postAddItemToCart);
+router.post(`${VIEWS.CART.PATH}/delete`, shop.deleteCartItem);
 
 module.exports = router;

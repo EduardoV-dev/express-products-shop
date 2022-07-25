@@ -1,58 +1,85 @@
 const { ADMIN, SHOP } = require('../config/views');
 const Product = require('../models/product');
 
-exports.getAdminProducts = (req, res) => {
-  const products = Product.getAllProducts();
-  res.render(ADMIN.PRODUCTS.VIEW, {
-    title: ADMIN.PRODUCTS.TITLE,
-    products,
-  });
+exports.getAdminProducts = async (req, res) => {
+    try {
+        const products = await Product.findAll();
+
+        res.render(ADMIN.PRODUCTS.VIEW, {
+            title: ADMIN.PRODUCTS.TITLE,
+            products,
+        });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-exports.getEditProductView = (req, res) => {
-  const { productId } = req.params;
-  const product = Product.getProductById(productId);
+exports.getEditProductView = async (req, res) => {
+    const { productId } = req.params;
 
-  res.render(ADMIN.FORM.VIEW, {
-    title: 'Edit product',
-    product,
-    isUpdating: true,
-  });
+    try {
+        const [product] = await Product.findAll({ where: { id: productId } });
+
+        res.render(ADMIN.FORM.VIEW, {
+            title: 'Edit product',
+            product,
+            isUpdating: true,
+        });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 exports.getAddProductView = (req, res) => {
-  res.render(ADMIN.FORM.VIEW, { title: ADMIN.FORM.TITLE, isUpdating: false });
+    res.render(ADMIN.FORM.VIEW, { title: ADMIN.FORM.TITLE, isUpdating: false });
 };
 
-exports.postProduct = (req, res) => {
-  const { title, imageURL, price, description } = req.body;
-  const product = new Product(
-    title.trim(),
-    imageURL.trim(),
-    Number(price.trim()),
-    description.trim(),
-  );
-  product.save();
+exports.postProduct = async (req, res) => {
+    const { title, imageURL: imageUrl, price, description } = req.body;
 
-  res.redirect(SHOP.PRODUCTS.PATH);
+    try {
+        await req.user.createProduct({
+            title,
+            imageUrl,
+            price,
+            description,
+        });
+
+        res.redirect(SHOP.PRODUCTS.PATH);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-exports.deleteProduct = (req, res) => {
-  const { productId } = req.body;
-  Product.deleteProduct(productId);
+exports.deleteProduct = async (req, res) => {
+    const { productId } = req.body;
 
-  res.redirect(ADMIN.PRODUCTS.PATH);
+    try {
+        await Product.destroy({ where: { id: productId } });
+
+        res.redirect(ADMIN.PRODUCTS.PATH);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-exports.editProduct = (req, res) => {
-  const { title, imageURL, price, description, productId } = req.body;
-  const newProduct = new Product(
-    title.trim(),
-    imageURL.trim(),
-    Number(price.trim()),
-    description.trim(),
-  );
-  newProduct.edit(productId);
+exports.editProduct = async (req, res) => {
+    const {
+        title,
+        imageURL: imageUrl,
+        price,
+        description,
+        productId,
+    } = req.body;
 
-  res.redirect(ADMIN.PRODUCTS.PATH);
+    try {
+        await Product.update(
+            { title, imageUrl, price, description },
+            { where: { id: productId } },
+        );
+
+        res.redirect(ADMIN.PRODUCTS.PATH);
+    } catch (err) {
+        console.log(err);
+    }
 };
