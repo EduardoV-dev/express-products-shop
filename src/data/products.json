@@ -1,30 +1,30 @@
 [
-  {
-    "id": 1,
-    "title": "The Dark Knight Rises",
-    "imageURL": "https://placekitten.com/150",
-    "price": "9.99",
-    "description": "A great book about Batman and his rise to the top of the world."
-  },
-  {
-    "id": 3,
-    "title": "Cat",
-    "imageURL": "https://placekitten.com/150",
-    "price": 512,
-    "description": "Cat description change"
-  },
-  {
-    "id": 4,
-    "title": "Amor",
-    "imageURL": "https://placekitten.com/150",
-    "price": "20",
-    "description": "Escrito por Charles Bukowski"
-  },
-  {
-    "id": 5,
-    "title": "Beber",
-    "imageURL": "https://placekitten.com/150",
-    "price": "25",
-    "description": "Escrito por el ebrio favorito de Bryan"
-  }
+    {
+        "id": 1,
+        "title": "The Dark Knight Rises",
+        "imageURL": "https://placekitten.com/150",
+        "price": "9.99",
+        "description": "A great book about Batman and his rise to the top of the world."
+    },
+    {
+        "id": 3,
+        "title": "Cat",
+        "imageURL": "https://placekitten.com/150",
+        "price": 512,
+        "description": "Cat description change"
+    },
+    {
+        "id": 4,
+        "title": "Amor",
+        "imageURL": "https://placekitten.com/150",
+        "price": "20",
+        "description": "Escrito por Charles Bukowski"
+    },
+    {
+        "id": 5,
+        "title": "Beber",
+        "imageURL": "https://placekitten.com/150",
+        "price": "25",
+        "description": "Escrito por el ebrio favorito de Bryan"
+    }
 ]

@@ -1,0 +1,17 @@
+<section class="orders-list">
+  {{#if orders.length}}
+    {{#each orders}}
+      <article class="order">
+        <h1>Order - #{{id}}</h1>
+
+        <ul>
+          {{#each items}}
+            <li>{{title}} ({{quantity}})</li>
+          {{/each}}
+        </ul>
+      </article>
+    {{/each}}
+  {{else}}
+    <h2 class="title">No orders yet!</h2>
+  {{/if}}
+</section>
