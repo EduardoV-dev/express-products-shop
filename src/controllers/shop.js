@@ -3,10 +3,13 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Order = require('../models/orders');
 
-exports.getShopProducts = (req, res) => {
-    const products = Product.getAllProducts();
+exports.getShopProducts = async (req, res) => {
+    const products = await Product.getProducts(req.user._id);
 
-    res.render(SHOP.PRODUCTS.VIEW, { title: SHOP.PRODUCTS.TITLE, products });
+    res.render(SHOP.PRODUCTS.VIEW, {
+        title: SHOP.PRODUCTS.TITLE,
+        products,
+    });
 };
 
 exports.getCart = (req, res) => {

@@ -1,4 +1,4 @@
-<form id="product-form" action="{{#if isUpdating}}/admin/product-form/edit{{else}}/admin/product-form{{/if}}" method="POST" autocomplete="off">
+<form id="product-form" action="{{#if isUpdating}}/admin/product-form/edit{{else}}/admin/product-form{{/if}}" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" value="{{#if isUpdating}}{{product.title}}{{/if}}" />
@@ -15,6 +15,6 @@
     <label for="description">Description</label>
     <textarea id="description" name="description">{{#if isUpdating}}{{product.description}}{{/if}}</textarea>
   </div>
-  {{#if isUpdating}} <input type="hidden" name="productId" value="{{product.id}}" /> {{/if}}
+  {{#if isUpdating}} <input type="hidden" name="productId" value="{{product._id}}" /> {{/if}}
   <button class="btn btn-primary" type="submit">{{#if isUpdating}}Edit product{{else}}Add Product{{/if}} </button>
 </form>

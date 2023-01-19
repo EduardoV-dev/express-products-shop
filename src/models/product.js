@@ -1,62 +1,59 @@
-const { getData, addData } = require('../helpers/files');
-const { PRODUCTS_FILE_PATH } = require('../consts/filesPath');
+const MongoDB = require('mongodb');
 
-const getProductsFromFile = () => getData(PRODUCTS_FILE_PATH);
-
-const getProductsNextId = () => {
-    const products = getProductsFromFile();
-
-    if (products.length === 0) return 1;
-
-    return products[products.length - 1].id + 1;
-};
-
-const formatProduct = product => ({
-    id: getProductsNextId(),
-    ...product,
-});
+const { getDb } = require('../lib/database');
 
 module.exports = class Product {
-    constructor(title, imageURL, price, description) {
+    constructor(title, imageURL, price, description, userId) {
         this.title = title;
         this.imageURL = imageURL;
         this.price = price;
         this.description = description;
+        this.userId = userId;
     }
 
-    static getAllProducts() {
-        return getProductsFromFile();
+    static getProducts(userId) {
+        return getDb()
+            .collection('products')
+            .find({ userId })
+            .toArray()
+            .catch(console.error);
     }
 
     static getProductById(id) {
-        return getProductsFromFile().find(item => item.id === Number(id));
+        return getDb()
+            .collection('products')
+            .findOne({ _id: new MongoDB.ObjectId(id) })
+            .catch(console.error);
     }
 
-    static deleteProduct(id) {
-        const products = getProductsFromFile();
-        addData(
-            PRODUCTS_FILE_PATH,
-            products.filter(product => product.id !== Number(id)),
-        );
-    }
-
-    edit(id) {
-        const products = getProductsFromFile();
-
-        addData(
-            PRODUCTS_FILE_PATH,
-            products.map(product =>
-                product.id === Number(id)
-                    ? { id: Number(id), ...this }
-                    : product,
-            ),
-        );
+    static deleteProductById(id) {
+        return getDb()
+            .collection('products')
+            .deleteOne({ _id: new MongoDB.ObjectId(id) })
+            .catch(console.error);
     }
 
     save() {
-        const products = getProductsFromFile();
+        return getDb()
+            .collection('products')
+            .insertOne(this)
+            .catch(console.error);
+    }
 
-        products.push(formatProduct(this));
-        addData(PRODUCTS_FILE_PATH, products);
+    edit(productId) {
+        return getDb()
+            .collection('products')
+            .updateOne(
+                { _id: new MongoDB.ObjectId(productId) },
+                {
+                    $set: {
+                        title: this.title,
+                        imageURL: this.imageURL,
+                        price: this.price,
+                        description: this.description,
+                    },
+                },
+            )
+            .catch(console.error);
     }
 };
