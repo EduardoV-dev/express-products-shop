@@ -2,11 +2,14 @@
   {{#if cart.length}}
     {{#each cart}}
       <div class="cart">
-        <p>{{title}}</p>
+        <p>
+          <a href="/shop/products/{{productId}}">{{title}}</a>
+        </p>
+
         <p>Quantity: <span>{{quantity}}</span></p>
         <form action="/shop/cart/delete" method="POST">
-          <input type="hidden" name="productId" value="{{id}}"  />
-          <button type="submit" class="btn btn-danger">Delete</a>
+          <input type="hidden" name="productId" value="{{productId}}"  />
+          <button type="submit" class="btn btn-danger">Delete</button>
         </form>
       </div>
     {{/each}}

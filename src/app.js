@@ -6,6 +6,7 @@ const adminRouter = require('./routes/admin');
 const shopRouter = require('./routes/shop');
 const { renderErrorPage } = require('./controllers/error');
 const database = require('./lib/database');
+const User = require('./models/user');
 
 const app = express();
 configEnv(app, express);
@@ -17,7 +18,7 @@ app.use(async (req, res, next) => {
     const user = await db.collection('users').findOne({
         _id: new MongoDB.ObjectId('63c9c36f785ed725a799654f'),
     });
-    req.user = user;
+    req.user = new User(user._id, user.name, user.email);
 
     next();
 });

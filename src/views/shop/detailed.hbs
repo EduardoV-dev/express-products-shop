@@ -1,6 +1,11 @@
-<div class="card">
+<div class="card" style="margin-inline: auto;">
   <h3>{{product.title}}</h3>
   <img src="{{product.imageURL}}" alt="{{product.title}}" />
   <span>$ {{product.price}}</span>
   <p>{{product.description}}</p>
+
+  <form method="POST" action="/shop/cart">
+    <input type="hidden" name="productId" value="{{product._id}}" />
+    <button type="submit" class="btn btn-primary" style="display: block; margin-inline: auto">Add to cart</button>
+  </form>
 </div>

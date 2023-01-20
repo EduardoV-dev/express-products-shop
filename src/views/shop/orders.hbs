@@ -2,11 +2,13 @@
   {{#if orders.length}}
     {{#each orders}}
       <article class="order">
-        <h1>Order - #{{id}}</h1>
+        <h1>Order - #{{_id}}</h1>
 
         <ul>
           {{#each items}}
-            <li>{{title}} ({{quantity}})</li>
+            <li>
+              <a href="/shop/products/{{productId}}" style="color: #333;">{{title}} ({{quantity}})</a>
+            </li>
           {{/each}}
         </ul>
       </article>

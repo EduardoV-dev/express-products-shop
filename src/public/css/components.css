@@ -121,6 +121,14 @@
     color: var(--main-color);
 }
 
+.cart a {
+    text-decoration: none;
+}
+
+.cart a:is(:hover, :focus) {
+    text-decoration: underline;
+}
+
 /* 4. Orders */
 
 .orders-list {

@@ -12,7 +12,7 @@ module.exports = {
         },
         DETAILED_VIEW: {
             VIEW: 'shop/detailed',
-            PATH: '/shop/products/detail/:productId',
+            PATH: '/shop/products/:productId',
             TITLE: 'Shop |',
         },
         ORDERS: {
