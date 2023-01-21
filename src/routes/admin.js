@@ -9,9 +9,9 @@ router.get(ADMIN.PRODUCTS.PATH, controller.getAdminProducts);
 router.post(`${ADMIN.PRODUCTS.PATH}/delete`, controller.deleteProduct);
 
 /* Product Form */
-router.get(`${ADMIN.FORM.PATH}/:productId`, controller.getEditProductView);
 router.get(ADMIN.FORM.PATH, controller.getAddProductView);
 router.post(ADMIN.FORM.PATH, controller.postProduct);
+router.get(`${ADMIN.FORM.PATH}/:productId`, controller.getEditProductView);
 router.post(`${ADMIN.FORM.PATH}/edit`, controller.editProduct);
 
 module.exports = router;

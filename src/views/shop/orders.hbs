@@ -7,7 +7,7 @@
         <ul>
           {{#each items}}
             <li>
-              <a href="/shop/products/{{productId}}" style="color: #333;">{{title}} ({{quantity}})</a>
+              <a href="/shop/products/{{productId._id}}" style="color: #333;">{{productId.title}} ({{quantity}})</a>
             </li>
           {{/each}}
         </ul>

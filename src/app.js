@@ -1,32 +1,49 @@
 const express = require('express');
-const MongoDB = require('mongodb');
 
 const configEnv = require('./config/environment');
+const database = require('./lib/database');
 const adminRouter = require('./routes/admin');
 const shopRouter = require('./routes/shop');
 const { renderErrorPage } = require('./controllers/error');
-const database = require('./lib/database');
 const User = require('./models/user');
 
 const app = express();
 configEnv(app, express);
 
-app.get('/', (req, res) => res.redirect('/shop/products'));
-
 app.use(async (req, res, next) => {
-    const db = database.getDb();
-    const user = await db.collection('users').findOne({
-        _id: new MongoDB.ObjectId('63c9c36f785ed725a799654f'),
-    });
-    req.user = new User(user._id, user.name, user.email);
+    try {
+        const user = await User.findById('63cc5165778a976c6b0e504b');
+        req.user = user;
 
-    next();
+        next();
+    } catch (error) {
+        console.error(error);
+    }
 });
+
+app.get('/', (req, res) => res.redirect('/shop/products'));
 
 /* Routes */
 app.use(shopRouter);
 app.use(adminRouter);
 app.use(renderErrorPage);
 
-database.connectToDatabase();
-app.listen('3001');
+database
+    .connect()
+    .then(() => User.findOne())
+    .then(user => {
+        if (user) return Promise.resolve('');
+
+        const newUser = new User({
+            name: 'Eduardo',
+            email: 'email@email.com',
+            cart: [],
+        });
+
+        return newUser.save();
+    })
+    .then(() => {
+        console.log('Connected!');
+        app.listen('3001');
+    })
+    .catch(console.error);
