@@ -1,4 +1,11 @@
 module.exports = {
+    AUTH: {
+        LOGIN: {
+            VIEW: 'auth/login',
+            PATH: '/auth/login',
+            TITLE: 'Shop | Auth',
+        },
+    },
     SHOP: {
         PRODUCTS: {
             VIEW: 'shop/products',

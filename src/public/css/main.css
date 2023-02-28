@@ -12,37 +12,37 @@
 /* 1. Variables */
 
 :root {
-  /* Colors */
-  --main-color: #00695c;
-  --danger-color: #ff0000;
-  --text-dark: #333;
-  --text-light: #f2f2f2;
-  --text-active: #cceb3b;
-  --border-gray-color: #ccc;
+    /* Colors */
+    --main-color: #00695c;
+    --danger-color: #ff0000;
+    --text-dark: #333;
+    --text-light: #f2f2f2;
+    --text-active: #cceb3b;
+    --border-gray-color: #ccc;
 
-  /* Background */
-  --background: #f2f2f2;
-  --background-white: #fff;
+    /* Background */
+    --background: #f2f2f2;
+    --background-white: #fff;
 
-  /* Sizes */
-  --card-width: 300px;
-  --card-img-height: 200px;
-  --cart-width: 600px;
-  --textarea-height: 150px;
+    /* Sizes */
+    --card-width: 300px;
+    --card-img-height: 200px;
+    --cart-width: 600px;
+    --textarea-height: 150px;
 
-  /* Fonts */
-  --main-fonts: 'Roboto', Arial, Helvetica, sans-serif;
+    /* Fonts */
+    --main-fonts: 'Roboto', Arial, Helvetica, sans-serif;
 
-  /* Borders */
-  --border-gray: 1px solid var(--border-gray-color);
-  --border-main: 2px solid var(--main-color);
+    /* Borders */
+    --border-gray: 1px solid var(--border-gray-color);
+    --border-main: 2px solid var(--main-color);
 
-  /* Shadows */
-  --shadow: 1px 1px 1px #ccc;
+    /* Shadows */
+    --shadow: 1px 1px 1px #ccc;
 
-  /* Miscellaneous */
-  --header-z-index: 10;
-  --transition-time: 0.3s;
+    /* Miscellaneous */
+    --header-z-index: 10;
+    --transition-time: 0.3s;
 }
 
 /* 2. General */
@@ -50,169 +50,179 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: var(--background);
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  color: var(--text-dark);
+    background-color: var(--background);
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    color: var(--text-dark);
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
 
 li {
-  position: relative;
+    position: relative;
 }
 
 ul li a,
-ul li {
-  font-size: 1rem;
-  color: var(--text-light);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all var(--transition-time) ease-out;
+ul li,
+ul li button {
+    font-size: 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-time) ease-out;
 }
 
-ul li a:hover,
-ul li a:focus,
-ul li a.active,
-.header .navbar-submenu li a:hover,
-.header .navbar-submenu li a:focus {
-  color: var(--text-active);
+ul li a:is(:hover, :focus, .active),
+ul li button:is(:hover, :focus),
+.header .navbar-submenu li a:is(:focus, :hover) {
+    color: var(--text-active);
 }
 
 input,
 textarea {
-  border: none;
-  outline: none;
+    border: none;
+    outline: none;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, var(--card-width)), 1fr)
-  );
-  gap: 1rem;
-  justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, var(--card-width)), 1fr)
+    );
+    gap: 1rem;
+    justify-items: center;
 }
 
 #cart-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #product-form {
-  width: 100%;
-  max-width: var(--card-width);
-  margin: 1rem auto 0;
+    width: 100%;
+    max-width: var(--card-width);
+    margin: 1rem auto 0;
 }
 
 #product-form button[type='submit'] {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 .title {
-  text-align: center;
-  margin: 2rem 0;
+    text-align: center;
+    margin: 2rem 0;
 }
 
 /* 3. Layout */
 
 .header {
-  background-color: var(--main-color);
-  position: sticky;
-  top: 0;
-  z-index: var(--header-z-index);
+    background-color: var(--main-color);
+    position: sticky;
+    top: 0;
+    z-index: var(--header-z-index);
 }
 
 .header .navbar {
-  padding: 1rem;
+    padding: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 .header .navbar > ul {
-  display: flex;
+    display: flex;
 }
 
 .header .navbar > ul li {
-  margin-right: 1rem;
+    margin-right: 1rem;
 }
 
 .header .navbar-submenu {
-  width: max-content;
-  flex-direction: column;
-  background-color: var(--background-white);
-  position: absolute;
-  top: 25px;
-  left: 0;
-  padding: 1rem;
-  border: 1px solid var(--border);
-  opacity: 0;
-  visibility: hidden;
-  transition: all var(--transition-time) ease;
+    width: max-content;
+    flex-direction: column;
+    background-color: var(--background-white);
+    position: absolute;
+    top: 25px;
+    left: 0;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-time) ease;
 }
 
 .header .navbar-submenu li {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .header .navbar-submenu li:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .header .navbar-submenu li a {
-  color: var(--text-dark);
+    color: var(--text-dark);
 }
 
 .header .navbar ul > li:hover .navbar-submenu,
 .header .navbar ul > li:focus .navbar-submenu {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 .main {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 /* 4. Forms */
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .form-group:last-of-type {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .form-group label {
-  margin-bottom: 0.2rem;
-  font-weight: 700;
+    margin-bottom: 0.2rem;
+    font-weight: 700;
 }
 
 .form-group input,
 .form-group textarea {
-  border: var(--border-gray);
-  padding: 0.5rem;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    border: var(--border-gray);
+    padding: 0.5rem;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border: var(--border-main);
-  box-shadow: var(--shadow);
+    border: var(--border-main);
+    box-shadow: var(--shadow);
 }
 
 .form-group textarea {
-  min-height: calc(var(--textarea-height) * 0.5);
-  height: var(--textarea-height);
-  max-height: calc(var(--textarea-height) * 2);
-  resize: vertical;
+    min-height: calc(var(--textarea-height) * 0.5);
+    height: var(--textarea-height);
+    max-height: calc(var(--textarea-height) * 2);
+    resize: vertical;
 }

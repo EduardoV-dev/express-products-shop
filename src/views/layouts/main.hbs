@@ -18,25 +18,45 @@
               <li>
                 <a href="/shop/products">Products</a>
               </li>
-              <li>
-                <a href="/shop/cart">Cart</a>
-              </li>
-              <li>
-                <a href="/shop/orders">Orders</a>
-              </li>
+            {{#if isLoggedIn}}
+                 <li>
+                  <a href="/shop/cart">Cart</a>
+                </li>
+                <li>
+                  <a href="/shop/orders">Orders</a>
+                </li>
+            {{/if}}
             </ul>
           </li>
-          <li>
-            Admin
-            <ul class="navbar-submenu">
+
+          {{#if isLoggedIn}}
               <li>
-                <a href="/admin/products">Products</a>
+                Admin
+                <ul class="navbar-submenu">
+                  <li>
+                    <a href="/admin/products">Products</a>
+                  </li>
+                  <li>
+                    <a href="/admin/product-form">Add Product</a>
+                  </li>
+                </ul>
               </li>
-              <li>
-                <a href="/admin/product-form">Add Product</a>
-              </li>
+            {{/if}}
             </ul>
-          </li>
+        </ul>
+
+        <ul>
+          {{#if isLoggedIn}}
+            <li>
+              <form action="/auth/logout" method="post">
+                <button type="submit">Logout</button>
+              </form>
+            </li>
+          {{else}}
+            <li>
+              <a href="/auth/login">Login</a>
+            </li>
+          {{/if}}
         </ul>
       </nav>
     </header>

@@ -7,7 +7,6 @@ const USERNAME = process.env.DB_USERNAME;
 const PASSWORD = process.env.DB_PASSWORD;
 const CLUSTER = process.env.DB_CLUSTER;
 const DATABASE = process.env.DB_NAME;
-
 const CONNECTION_STRING = `mongodb+srv://${USERNAME}:${PASSWORD}@${CLUSTER}/?retryWrites=true&w=majority`;
 
 const connect = () =>
@@ -17,4 +16,5 @@ const connect = () =>
 
 module.exports = {
     connect,
+    CONNECTION_STRING,
 };

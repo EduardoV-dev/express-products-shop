@@ -7,6 +7,7 @@ exports.getAdminProducts = async (req, res) => {
     res.render(ADMIN.PRODUCTS.VIEW, {
         title: ADMIN.PRODUCTS.TITLE,
         products,
+        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -20,11 +21,16 @@ exports.getEditProductView = async (req, res) => {
         title: 'Edit product',
         product,
         isUpdating: true,
+        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
 exports.getAddProductView = (req, res) =>
-    res.render(ADMIN.FORM.VIEW, { title: ADMIN.FORM.TITLE, isUpdating: false });
+    res.render(ADMIN.FORM.VIEW, {
+        title: ADMIN.FORM.TITLE,
+        isUpdating: false,
+        isLoggedIn: req.session.isLoggedIn,
+    });
 
 exports.postProduct = async (req, res) => {
     const { title, imageURL, price, description } = req.body;

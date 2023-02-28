@@ -9,6 +9,7 @@ exports.getShopProducts = async (req, res) => {
     res.render(SHOP.PRODUCTS.VIEW, {
         title: SHOP.PRODUCTS.TITLE,
         products,
+        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -17,7 +18,11 @@ exports.getCart = async (req, res) => {
         'cart.productId',
     );
 
-    res.render(SHOP.CART.VIEW, { title: SHOP.CART.TITLE, cart });
+    res.render(SHOP.CART.VIEW, {
+        title: SHOP.CART.TITLE,
+        cart,
+        isLoggedIn: req.session.isLoggedIn,
+    });
 };
 
 exports.postAddItemToCart = async (req, res) => {
@@ -41,6 +46,7 @@ exports.getDetailedView = async (req, res) => {
     res.render(SHOP.DETAILED_VIEW.VIEW, {
         title: `${SHOP.DETAILED_VIEW.TITLE} ${product.title}`,
         product,
+        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -54,6 +60,7 @@ exports.getOrdersView = async (req, res) => {
     res.render(SHOP.ORDERS.VIEW, {
         title: SHOP.ORDERS.TITLE,
         orders,
+        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
