@@ -1,21 +1,21 @@
 const express = require('express');
 
-const { SHOP } = require('../config/views');
 const controller = require('../controllers/shop');
+const isAuthenticated = require('../middlewares/routes-protection');
 
 const router = express.Router();
 
 /* Products */
-router.get(SHOP.PRODUCTS.PATH, controller.getShopProducts);
-router.get(SHOP.DETAILED_VIEW.PATH, controller.getDetailedView);
+router.get('/products', controller.getShopProducts);
+router.get('/products/:productId', controller.getDetailedView);
 
 /* Orders */
-router.get(SHOP.ORDERS.PATH, controller.getOrdersView);
-router.post(SHOP.ORDERS.PATH, controller.postOrder);
+router.get('/orders', isAuthenticated, controller.getOrdersView);
+router.post('/orders', isAuthenticated, controller.postOrder);
 
 /* Cart */
-router.get(SHOP.CART.PATH, controller.getCart);
-router.post(SHOP.CART.PATH, controller.postAddItemToCart);
-router.post(`${SHOP.CART.PATH}/delete`, controller.deleteCartItem);
+router.get('/cart', isAuthenticated, controller.getCart);
+router.post('/cart', isAuthenticated, controller.postAddItemToCart);
+router.post('/cart/delete', isAuthenticated, controller.deleteCartItem);
 
 module.exports = router;

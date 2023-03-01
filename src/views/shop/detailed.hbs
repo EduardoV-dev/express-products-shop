@@ -5,6 +5,7 @@
   <p>{{product.description}}</p>
 
   <form method="POST" action="/shop/cart">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
     <input type="hidden" name="productId" value="{{product._id}}" />
     <button type="submit" class="btn btn-primary" style="display: block; margin-inline: auto">Add to cart</button>
   </form>

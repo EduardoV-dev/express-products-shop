@@ -9,6 +9,7 @@
         <div class="card-actions">
           <a class="btn btn-primary" href="/shop/products/{{_id}}">Details</a>
           <form action="/shop/cart" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <input name="productId" type="hidden" value="{{_id}}" />
             <button type="submit" class="btn btn-primary">Add to Cart</a>
           </form>

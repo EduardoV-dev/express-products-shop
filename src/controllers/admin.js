@@ -1,13 +1,11 @@
-const { ADMIN, ERROR } = require('../config/views');
 const Product = require('../models/product');
 
 exports.getAdminProducts = async (req, res) => {
     const products = await Product.find({ userId: req.user._id });
 
-    res.render(ADMIN.PRODUCTS.VIEW, {
-        title: ADMIN.PRODUCTS.TITLE,
+    res.render('admin/products', {
+        title: 'Products | Admin',
         products,
-        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -15,21 +13,19 @@ exports.getEditProductView = async (req, res) => {
     const { productId } = req.params;
     const product = await Product.findById(productId);
 
-    if (!product) res.redirect(ERROR.PAGE_NOT_FOUND.PATH);
+    if (!product) res.redirect('/page-not-found');
 
-    res.render(ADMIN.FORM.VIEW, {
+    res.render('admin/product-form', {
         title: 'Edit product',
         product,
         isUpdating: true,
-        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
 exports.getAddProductView = (req, res) =>
-    res.render(ADMIN.FORM.VIEW, {
-        title: ADMIN.FORM.TITLE,
+    res.render('admin/product-form', {
+        title: 'Add Product | Admin',
         isUpdating: false,
-        isLoggedIn: req.session.isLoggedIn,
     });
 
 exports.postProduct = async (req, res) => {
@@ -43,14 +39,14 @@ exports.postProduct = async (req, res) => {
     });
 
     await product.save();
-    res.redirect(ADMIN.PRODUCTS.PATH);
+    res.redirect('/admin/products');
 };
 
 exports.deleteProduct = async (req, res) => {
     const { productId } = req.body;
 
     await Product.findByIdAndDelete(productId).catch(console.error);
-    res.redirect(ADMIN.PRODUCTS.PATH);
+    res.redirect('/admin/products');
 };
 
 exports.editProduct = async (req, res) => {
@@ -62,6 +58,5 @@ exports.editProduct = async (req, res) => {
         price: Number(price.trim()),
         title: title.trim(),
     }).catch(console.error);
-
-    res.redirect(ADMIN.PRODUCTS.PATH);
+    res.redirect('/admin/products');
 };

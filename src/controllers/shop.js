@@ -1,27 +1,24 @@
-const { SHOP } = require('../config/views');
 const Product = require('../models/product');
 const User = require('../models/user');
 const Order = require('../models/order');
 
 exports.getShopProducts = async (req, res) => {
-    const products = await Product.find({ userId: req.user._id });
+    const products = await Product.find();
 
-    res.render(SHOP.PRODUCTS.VIEW, {
-        title: SHOP.PRODUCTS.TITLE,
+    res.render('shop/products', {
+        title: 'List of Products | Shop',
         products,
-        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
 exports.getCart = async (req, res) => {
-    const { cart } = await User.findById({ _id: req.user._id }).populate(
-        'cart.productId',
-    );
+    const { cart } = await User.findById({
+        _id: req.user._id,
+    }).populate('cart.productId');
 
-    res.render(SHOP.CART.VIEW, {
-        title: SHOP.CART.TITLE,
+    res.render('shop/cart', {
+        title: 'Cart of Products | Shop',
         cart,
-        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -29,24 +26,23 @@ exports.postAddItemToCart = async (req, res) => {
     const { productId } = req.body;
 
     await req.user.addToCart(productId);
-    res.redirect(SHOP.CART.PATH);
+    res.redirect('/shop/cart');
 };
 
 exports.deleteCartItem = async (req, res) => {
     const { productId } = req.body;
 
     await req.user.removeFromCart(productId);
-    res.redirect(SHOP.CART.PATH);
+    res.redirect('/shop/cart');
 };
 
 exports.getDetailedView = async (req, res) => {
     const { productId } = req.params;
     const product = await Product.findById(productId);
 
-    res.render(SHOP.DETAILED_VIEW.VIEW, {
-        title: `${SHOP.DETAILED_VIEW.TITLE} ${product.title}`,
+    res.render('shop/detailed', {
+        title: `${product.title} | Shop`,
         product,
-        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -57,10 +53,9 @@ exports.getOrdersView = async (req, res) => {
         )
     ).reverse();
 
-    res.render(SHOP.ORDERS.VIEW, {
-        title: SHOP.ORDERS.TITLE,
+    res.render('shop/orders', {
+        title: 'Shop | Orders',
         orders,
-        isLoggedIn: req.session.isLoggedIn,
     });
 };
 
@@ -70,13 +65,12 @@ exports.postOrder = async (req, res) => {
     const order = new Order({
         items: cart,
         user: {
-            name: req.user.name,
+            email: req.user.email,
             userId: req.user._id,
         },
     });
 
     await order.save();
     await req.user.clearCart();
-
-    res.redirect(SHOP.ORDERS.PATH);
+    res.redirect('/shop/orders');
 };

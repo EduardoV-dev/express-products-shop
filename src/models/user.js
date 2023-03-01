@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
-    name: {
+    email: {
         type: String,
         required: true,
     },
-    email: {
+    password: {
         type: String,
         required: true,
     },
@@ -72,6 +72,6 @@ schema.methods.removeFromCart = function removeFromCart(productId) {
 schema.methods.clearCart = function clearCart() {
     this.cart = [];
     return this.save();
-}
+};
 
 module.exports = model('User', schema);

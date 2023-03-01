@@ -8,6 +8,7 @@
 
         <p>Quantity: <span>{{quantity}}</span></p>
         <form action="/shop/cart/delete" method="POST">
+          <input type="hidden" name="_csrf" value="{{csrfToken}}" />
           <input type="hidden" name="productId" value="{{productId._id}}"  />
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
@@ -15,6 +16,7 @@
     {{/each}}
 
     <form action="/shop/orders" method="POST">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}" />
       <button type="submit" class="btn btn-primary" style="margin-top: 0.6rem;">Order Now!</button>
     </form>
   {{else}}

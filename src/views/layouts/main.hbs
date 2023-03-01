@@ -49,12 +49,16 @@
           {{#if isLoggedIn}}
             <li>
               <form action="/auth/logout" method="post">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
                 <button type="submit">Logout</button>
               </form>
             </li>
           {{else}}
             <li>
               <a href="/auth/login">Login</a>
+            </li>
+            <li>
+              <a href="/auth/signup">Signup</a>
             </li>
           {{/if}}
         </ul>

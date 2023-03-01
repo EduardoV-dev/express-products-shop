@@ -226,3 +226,20 @@ button {
     max-height: calc(var(--textarea-height) * 2);
     resize: vertical;
 }
+
+.user-message {
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    width: min(90%, 30rem);
+    border: 1px solid #4771fa;
+    padding: 0.5rem;
+    border-radius: 3px;
+    background: #b9c9ff;
+    text-align: center;
+}
+
+.user-message--error {
+    border-color: red;
+    background: rgb(255, 176, 176);
+    color: red;
+}
