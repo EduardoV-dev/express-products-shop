@@ -11,7 +11,9 @@
           <form action="/shop/cart" method="POST">
             <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <input name="productId" type="hidden" value="{{_id}}" />
-            <button type="submit" class="btn btn-primary">Add to Cart</a>
+            {{#if isLoggedIn}}
+              <button type="submit" class="btn btn-primary">Add to Cart</a>
+            {{/if}}
           </form>
         </div>
       </div>

@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
+
 const User = require('../models/user');
+const mailer = require('../lib/email');
 
 exports.getLoginPage = (req, res) => {
     res.render('auth/login', {
@@ -22,9 +24,12 @@ exports.postLogin = async (req, res) => {
             return res.redirect('/auth/login');
         }
 
-        const passwordsMatch = await bcrypt.compare(password, user.password);
+        const doPasswordsMatch = await bcrypt.compare(
+            password.trim(),
+            user.password,
+        );
 
-        if (!passwordsMatch) {
+        if (!doPasswordsMatch) {
             req.flash('login-error', 'Invalid password');
             return res.redirect('/auth/login');
         }
@@ -49,8 +54,9 @@ exports.getSignupPage = (req, res) =>
 exports.postSignup = async (req, res) => {
     try {
         const { email, password } = req.body;
+        const trimmedEmail = email.trim();
         const userWithProvidedEmail = await User.findOne({
-            email: email.trim(),
+            email: trimmedEmail,
         });
 
         if (userWithProvidedEmail) {
@@ -60,11 +66,17 @@ exports.postSignup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password.trim(), 12);
 
-        await new User({
+        new User({
             cart: [],
-            email,
+            email: trimmedEmail,
             password: hashedPassword,
         }).save();
+
+        mailer.send({
+            html: `<h1>You have created an account successfully!</h1>`,
+            subject: 'Account Created',
+            to: trimmedEmail,
+        });
 
         return res.redirect('/auth/login');
     } catch (error) {
