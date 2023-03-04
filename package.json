@@ -1,31 +1,31 @@
 {
-  "name": "products-shop",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "nodemon src/app.js"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.0",
-    "connect-flash": "^0.1.1",
-    "connect-mongodb-session": "^3.1.1",
-    "csurf": "^1.11.0",
-    "dotenv": "^16.0.3",
-    "eslint": "^8.10.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "express": "^4.17.3",
-    "express-handlebars": "^6.0.3",
-    "express-session": "^1.17.3",
-    "mongodb": "^4.13.0",
-    "mongoose": "^6.8.4",
-    "nodemailer": "^6.9.1",
-    "prettier": "^2.5.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+    "name": "products-shop",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "nodemon src/app.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.20.0",
+        "connect-flash": "^0.1.1",
+        "connect-mongodb-session": "^3.1.1",
+        "csurf": "^1.11.0",
+        "dotenv": "^16.0.3",
+        "eslint": "^8.10.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.25.4",
+        "express": "^4.17.3",
+        "express-handlebars": "^6.0.3",
+        "express-session": "^1.17.3",
+        "mongodb": "^4.13.0",
+        "mongoose": "^6.8.4",
+        "nodemailer": "^6.9.1",
+        "prettier": "^2.5.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
 }

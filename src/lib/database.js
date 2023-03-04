@@ -10,9 +10,7 @@ const DATABASE = process.env.DB_NAME;
 const CONNECTION_STRING = `mongodb+srv://${USERNAME}:${PASSWORD}@${CLUSTER}/?retryWrites=true&w=majority`;
 
 const connect = () =>
-    mongoose
-        .connect(CONNECTION_STRING, { dbName: DATABASE })
-        .catch(console.error);
+    mongoose.connect(CONNECTION_STRING, { dbName: DATABASE }).catch(console.error);
 
 module.exports = {
     connect,

@@ -9,6 +9,10 @@ const schema = new Schema({
         type: String,
         required: true,
     },
+    passwordReset: {
+        token: String,
+        expirationDate: Date,
+    },
     cart: [
         {
             productId: {
@@ -27,13 +31,10 @@ const schema = new Schema({
 schema.methods.addToCart = function addToCart(productId) {
     let updatedCart = [];
 
-    const productIndex = this.cart.findIndex(
-        item => item.productId.toString() === productId,
-    );
+    const productIndex = this.cart.findIndex(item => item.productId.toString() === productId);
 
     // Product does not exists in cart
-    if (productIndex < 0)
-        updatedCart = [...this.cart, { productId, quantity: 1 }];
+    if (productIndex < 0) updatedCart = [...this.cart, { productId, quantity: 1 }];
     // Product exists in cart
     else
         updatedCart = this.cart.map(item =>
@@ -50,19 +51,14 @@ schema.methods.removeFromCart = function removeFromCart(productId) {
     let updatedCart = [];
 
     const newItemQuantity =
-        this.cart.find(item => item.productId.toString() === productId)
-            .quantity - 1;
+        this.cart.find(item => item.productId.toString() === productId).quantity - 1;
 
     // Remove item from cart if quantity is 0
     if (newItemQuantity <= 0)
-        updatedCart = this.cart.filter(
-            item => item.productId.toString() !== productId,
-        );
+        updatedCart = this.cart.filter(item => item.productId.toString() !== productId);
     else
         updatedCart = this.cart.map(item =>
-            item.productId.toString() === productId
-                ? { ...item, quantity: newItemQuantity }
-                : item,
+            item.productId.toString() === productId ? { ...item, quantity: newItemQuantity } : item,
         );
 
     this.cart = updatedCart;

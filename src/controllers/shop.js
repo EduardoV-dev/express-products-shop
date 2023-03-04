@@ -48,9 +48,7 @@ exports.getDetailedView = async (req, res) => {
 
 exports.getOrdersView = async (req, res) => {
     const orders = (
-        await Order.find({ 'user.userId': req.user._id }).populate(
-            'items.productId',
-        )
+        await Order.find({ 'user.userId': req.user._id }).populate('items.productId')
     ).reverse();
 
     res.render('shop/orders', {
