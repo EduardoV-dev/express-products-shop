@@ -1,0 +1,38 @@
+  {{#if errors.form}}
+    <div class="user-message user-message--error">{{errors.form}}</div>
+  {{/if}}
+
+<form id="product-form" action="/admin/product-form" method="POST">
+  <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="{{initialValues.title}}" />
+    {{#if errors.title}}
+      <span>{{errors.title}}</span>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="image-url">Image URL</label>
+    <input type="text" id="image-url" name="imageURL" value="{{initialValues.imageURL}}" />
+    {{#if errors.imageURL}}
+      <span>{{errors.imageURL}}</span>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="text" id="price" name="price" value="{{initialValues.price}}" />
+    {{#if errors.price}}
+      <span>{{errors.price}}</span>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" value="{{initialValues.description}}"></textarea>
+    {{#if errors.description}}
+      <span>{{errors.description}}</span>
+    {{/if}}
+  </div>
+
+  <button class="btn btn-primary" type="submit">Add Product</button>
+</form>

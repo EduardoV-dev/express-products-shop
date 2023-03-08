@@ -6,6 +6,7 @@
   2. General
   3. Layout
   4. Forms
+  5. Custom classes
 
 */
 
@@ -223,6 +224,15 @@ button {
     max-height: calc(var(--textarea-height) * 2);
     resize: vertical;
 }
+
+.form-group span {
+    margin-top: 0.5rem;
+    color: rgb(255, 102, 102);
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+/* 5. Custom classes */
 
 .user-message {
     margin-inline: auto;
