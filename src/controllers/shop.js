@@ -2,73 +2,100 @@ const Product = require('../models/product');
 const User = require('../models/user');
 const Order = require('../models/order');
 
-exports.getShopProducts = async (req, res) => {
-    const products = await Product.find();
+exports.getShopProducts = async (req, res, next) => {
+    try {
+        const products = await Product.find();
 
-    res.render('shop/products', {
-        title: 'List of Products | Shop',
-        products,
-    });
+        return res.render('shop/products', {
+            title: 'List of Products | Shop',
+            products,
+        });
+    } catch (error) {
+        return next(error);
+    }
 };
 
-exports.getCart = async (req, res) => {
-    const { cart } = await User.findById({
-        _id: req.user._id,
-    }).populate('cart.productId');
+exports.getCart = async (req, res, next) => {
+    try {
+        const user = await User.findById({
+            _id: req.user._id,
+        }).populate('cart.productId');
 
-    res.render('shop/cart', {
-        title: 'Cart of Products | Shop',
-        cart,
-    });
+        return res.render('shop/cart', {
+            title: 'Cart of Products | Shop',
+            cart: user.cart,
+        });
+    } catch (error) {
+        return next(error);
+    }
 };
 
-exports.postAddItemToCart = async (req, res) => {
-    const { productId } = req.body;
+exports.postAddItemToCart = async (req, res, next) => {
+    try {
+        const { productId } = req.body;
 
-    await req.user.addToCart(productId);
-    res.redirect('/shop/cart');
+        req.user.addToCart(productId);
+        return res.redirect('/shop/cart');
+    } catch (error) {
+        return next(error);
+    }
 };
 
-exports.deleteCartItem = async (req, res) => {
-    const { productId } = req.body;
+exports.deleteCartItem = async (req, res, next) => {
+    try {
+        const { productId } = req.body;
 
-    await req.user.removeFromCart(productId);
-    res.redirect('/shop/cart');
+        req.user.removeFromCart(productId);
+        return res.redirect('/shop/cart');
+    } catch (error) {
+        return next(error);
+    }
 };
 
-exports.getDetailedView = async (req, res) => {
-    const { productId } = req.params;
-    const product = await Product.findById(productId);
+exports.getDetailedView = async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+        const product = await Product.findById(productId);
 
-    res.render('shop/detailed', {
-        title: `${product.title} | Shop`,
-        product,
-    });
+        res.render('shop/detailed', {
+            title: `${product.title} | Shop`,
+            product,
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
-exports.getOrdersView = async (req, res) => {
-    const orders = (
-        await Order.find({ 'user.userId': req.user._id }).populate('items.productId')
-    ).reverse();
+exports.getOrdersView = async (req, res, next) => {
+    try {
+        const orders = (
+            await Order.find({ 'user.userId': req.user._id }).populate('items.productId')
+        ).reverse();
 
-    res.render('shop/orders', {
-        title: 'Shop | Orders',
-        orders,
-    });
+        return res.render('shop/orders', {
+            title: 'Shop | Orders',
+            orders,
+        });
+    } catch (error) {
+        return next(error);
+    }
 };
 
-exports.postOrder = async (req, res) => {
-    const { cart } = req.user;
+exports.postOrder = async (req, res, next) => {
+    try {
+        const { cart } = req.user;
+        const order = new Order({
+            items: cart,
+            user: {
+                email: req.user.email,
+                userId: req.user._id,
+            },
+        });
 
-    const order = new Order({
-        items: cart,
-        user: {
-            email: req.user.email,
-            userId: req.user._id,
-        },
-    });
-
-    await order.save();
-    await req.user.clearCart();
-    res.redirect('/shop/orders');
+        order.save();
+        req.user.clearCart();
+        return res.redirect('/shop/orders');
+    } catch (error) {
+        return next(error);
+    }
 };

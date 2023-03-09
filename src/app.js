@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { renderErrorPage } = require('./controllers/error');
+const errorController = require('./controllers/error');
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
 const configEnv = require('./config/environment');
@@ -12,14 +12,6 @@ const isAuthenticated = require('./middlewares/routes-protection');
 const app = express();
 configEnv(app, express);
 
-app.use(async (req, res, next) => {
-    if (req.session.user) {
-        const user = await User.findById(req.session.user._id);
-        req.user = user;
-    }
-
-    next();
-});
 app.use((req, res, next) => {
     res.locals = {
         ...res.locals,
@@ -30,13 +22,25 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(async (req, res, next) => {
+    if (req.session.user) {
+        const user = await User.findById(req.session.user._id);
+        if (!user) throw new Error('User not found');
+        req.user = user;
+    }
+
+    next();
+});
+
 app.get('/', (req, res) => res.redirect('/shop/products'));
 
 /* Routes */
 app.use('/auth', authRouter);
 app.use('/shop', shopRouter);
 app.use('/admin', isAuthenticated, adminRouter);
-app.use('/page-not-found', renderErrorPage);
+
+app.use('/page-not-found', errorController.render404Page);
+app.use(errorController.render500Page);
 
 database
     .connect()
@@ -44,4 +48,6 @@ database
         console.log('Connected!');
         app.listen('3001');
     })
-    .catch(console.error);
+    .catch(error => {
+        throw new Error(error);
+    });

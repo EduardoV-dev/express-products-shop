@@ -20,7 +20,7 @@ exports.getLoginPage = (req, res) =>
         },
     });
 
-exports.postLogin = async (req, res) => {
+exports.postLogin = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const errors = validationResult(req);
@@ -60,8 +60,7 @@ exports.postLogin = async (req, res) => {
         req.session.user = user;
         return req.session.save(() => res.redirect('/'));
     } catch (error) {
-        console.error(error);
-        return error;
+        return next(error);
     }
 };
 
@@ -83,7 +82,7 @@ exports.getSignupPage = (req, res) =>
         },
     });
 
-exports.postSignup = async (req, res) => {
+exports.postSignup = async (req, res, next) => {
     try {
         const { email, password, repeatPassword } = req.body;
         const errors = validationResult(req);
@@ -132,8 +131,7 @@ exports.postSignup = async (req, res) => {
 
         return res.redirect('/auth/login');
     } catch (error) {
-        console.error(error);
-        return error;
+        return next(error);
     }
 };
 
@@ -145,7 +143,7 @@ exports.getResetPasswordPage = (req, res) =>
 
 const ONE_HOUR_TO_EXPIRE_IN_MS = 3_600_000;
 
-exports.postResetPassword = async (req, res) => {
+exports.postResetPassword = async (req, res, next) => {
     try {
         const email = req.body.email.trim();
         const user = await User.findOne({ email });
@@ -156,7 +154,6 @@ exports.postResetPassword = async (req, res) => {
         }
 
         const passwordResetToken = crypto.randomBytes(30).toString('hex');
-
         user.passwordReset = {
             expirationDate: Date.now() + ONE_HOUR_TO_EXPIRE_IN_MS,
             token: passwordResetToken,
@@ -178,8 +175,7 @@ exports.postResetPassword = async (req, res) => {
 
         return res.redirect('/auth/reset-password');
     } catch (error) {
-        console.error(error);
-        return error;
+        return next(error);
     }
 };
 
@@ -191,32 +187,34 @@ const verifyTokenExistance = (passwordResetToken, userId) =>
             ...(userId && { _id: userId }),
         }).then(user => {
             if (!user) reject(new Error('Token could have expired or does not exists'));
-
             resolve(user);
         });
     });
 
-exports.getNewPasswordPage = async (req, res) => {
+exports.getNewPasswordPage = async (req, res, next) => {
     try {
         const passwordResetToken = req.params.resetToken;
-        const user = await verifyTokenExistance(passwordResetToken);
+        const user = await verifyTokenExistance(passwordResetToken).catch(() =>
+            res.redirect('/auth/reset-password'),
+        );
 
-        res.render('auth/new-password', {
+        return res.render('auth/new-password', {
             title: 'Change password',
             userId: user._id.toString(),
             resetToken: passwordResetToken,
         });
     } catch (error) {
-        console.error(error);
-        res.redirect('/auth/reset-password');
+        return next(error);
     }
 };
 
-exports.postNewPassword = async (req, res) => {
+exports.postNewPassword = async (req, res, next) => {
     try {
         const { resetToken, userId, password } = req.body;
 
-        const user = await verifyTokenExistance(resetToken, userId);
+        const user = await verifyTokenExistance(resetToken, userId).catch(() =>
+            res.redirect('/auth/reset-password'),
+        );
         const hashedNewPassword = await bcrypt.hash(password.trim(), 12);
 
         user.password = hashedNewPassword;
@@ -230,7 +228,6 @@ exports.postNewPassword = async (req, res) => {
         });
         res.redirect('/auth/login');
     } catch (error) {
-        console.error(error);
-        res.redirect('/auth/reset-password');
+        next(error);
     }
 };
