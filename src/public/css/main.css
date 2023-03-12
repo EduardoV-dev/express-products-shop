@@ -250,3 +250,22 @@ button {
     background: rgb(255, 176, 176);
     color: red;
 }
+
+.pagination {
+    margin-top: 2rem;
+    width: min(100% - 2rem, 300px);
+    margin-inline: auto;
+
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination a {
+    background-color: #00695c;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+}

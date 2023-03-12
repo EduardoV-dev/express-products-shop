@@ -1,5 +1,5 @@
-<div class="grid">
-  {{#if products.length}}
+{{#if products.length}}
+  <div class="grid">
     {{#each products}}
       <div class="card">
         <h3>{{title}}</h3>
@@ -17,7 +17,20 @@
         </div>
       </div>
     {{/each}}
-  {{else}}
-    <h2 class="title">No products available</h2>
-  {{/if}}
-</div>
+  </div>
+
+  <section class="pagination">
+    {{#if hasPreviousPage }}
+      <a class="pagination-button" href="?page={{prevPage}}">< Prev</a>
+    {{/if}}
+
+    <span> página {{page}} / {{totalPages}} </span>
+
+    {{#if hasNextPage }}
+      <a class="pagination-button" href="?page={{nextPage}}">Next ></a>
+    {{/if}}
+  </section>
+
+{{else}}
+  <h2 class="title">No products available</h2>
+{{/if}}

@@ -1,22 +1,31 @@
-<div class="grid">
-  {{#if products.length}}
-    {{#each products}}
-      <div class="card">
-        <h3>{{title}}</h3>
-        <img src="/{{imageURL}}" alt="{{title}}" />
-        <span>$ {{price}}</span>
-        <p>{{description}}</p>
-        <div class="card-actions">
-          <a href="/admin/product-form/{{_id}}" class="btn btn-primary">Edit</a>
+{{#if products.length}}
+  <div class="grid">
+      {{#each products}}
+        <div class="card">
+          <h3>{{title}}</h3>
+          <img src="/{{imageURL}}" alt="{{title}}" />
+          <span>$ {{price}}</span>
+          <p>{{description}}</p>
+          <div class="card-actions">
+            <a href="/admin/product-form/{{_id}}" class="btn btn-primary">Edit</a>
 
-          <form action="/admin/products/delete" method="POST">
-            <input type="hidden" name="productId" value="{{_id}}" />
-            <button class="btn btn-danger" type="submit">Delete</button>
-          </form>
+            <form action="/admin/products/delete" method="POST">
+              <input type="hidden" name="productId" value="{{_id}}" />
+              <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+          </div>
         </div>
-      </div>
-    {{/each}}
-  {{else}}
-    <h2>No products to show</h2>
-  {{/if}}
-</div>
+      {{/each}}
+  </div>
+  <section class="pagination">
+    {{#if hasPreviousPage }}
+      <a class="pagination-button" href="?page={{prevPage}}">< Prev</a>
+    {{/if}}
+    <span> página {{page}} / {{totalPages}} </span>
+    {{#if hasNextPage }}
+      <a class="pagination-button" href="?page={{nextPage}}">Next ></a>
+    {{/if}}
+  </section>
+{{else}}
+  <h2>No products to show</h2>
+{{/if}}

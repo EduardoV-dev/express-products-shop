@@ -8,11 +8,24 @@ const Order = require('../models/order');
 
 exports.getShopProducts = async (req, res, next) => {
     try {
-        const products = await Product.find();
+        const ITEMS_PER_PAGE = 3;
+        const page = Number(req.query.page || 1);
+        const totalProducts = await Product.find().countDocuments();
+        const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+        const paginationOffset = (page - 1) * ITEMS_PER_PAGE;
+
+        const products = await Product.find().skip(paginationOffset).limit(ITEMS_PER_PAGE);
 
         return res.render('shop/products', {
             title: 'List of Products | Shop',
             products,
+
+            page,
+            prevPage: page - 1,
+            nextPage: page + 1,
+            totalPages,
+            hasPreviousPage: page > 1,
+            hasNextPage: page < totalPages,
         });
     } catch (error) {
         return next(error);
