@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const csurf = require('csurf');
 
 const database = require('../lib/database');
 
@@ -21,6 +20,10 @@ const hbsConfig = {
 module.exports = (app, express) => {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static(path.join(__dirname, '..', 'public')));
+    app.use(
+        '/product-images',
+        express.static(path.join(__dirname, '..', 'data', 'product-images')),
+    );
     app.engine('hbs', engine(hbsConfig));
     app.set('view engine', 'hbs');
     app.set('views', path.join(__dirname, '..', 'views'));
@@ -36,5 +39,4 @@ module.exports = (app, express) => {
             }),
         }),
     );
-    app.use(csurf());
 };

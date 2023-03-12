@@ -2,7 +2,7 @@
   {{#if orders.length}}
     {{#each orders}}
       <article class="order">
-        <h1>Order - #{{_id}}</h1>
+        <h1>Order - #{{_id}} - <a href="/shop/orders/{{_id}}">Invoice</a></h1>
 
         <ul>
           {{#each items}}

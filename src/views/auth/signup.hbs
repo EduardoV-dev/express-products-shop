@@ -3,7 +3,6 @@
   {{/if}}
 
 <form id="product-form" action="/auth/signup" method="post">
-  <input type="hidden" name="_csrf" value="{{csrfToken}}" />
   <div class="form-group">
     <label for="email">Email</label>
     <input type="text" id="email" name="email" value="{{initialValues.email}}" />

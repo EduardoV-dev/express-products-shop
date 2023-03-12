@@ -13,11 +13,7 @@ const app = express();
 configEnv(app, express);
 
 app.use((req, res, next) => {
-    res.locals = {
-        ...res.locals,
-        csrfToken: req.csrfToken(),
-        isLoggedIn: req.session.isLoggedIn,
-    };
+    res.locals.isLoggedIn = req.session.isLoggedIn;
 
     next();
 });
@@ -40,7 +36,7 @@ app.use('/shop', shopRouter);
 app.use('/admin', isAuthenticated, adminRouter);
 
 app.use('/page-not-found', errorController.render404Page);
-app.use(errorController.render500Page);
+app.use(errorController.serverErrorMiddleware);
 
 database
     .connect()

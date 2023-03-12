@@ -12,6 +12,7 @@ router.get('/products/:productId', controller.getDetailedView);
 /* Orders */
 router.get('/orders', isAuthenticated, controller.getOrdersView);
 router.post('/orders', isAuthenticated, controller.postOrder);
+router.get('/orders/:orderId', isAuthenticated, controller.getInvoice);
 
 /* Cart */
 router.get('/cart', isAuthenticated, controller.getCart);

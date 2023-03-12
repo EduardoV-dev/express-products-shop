@@ -2,9 +2,7 @@
     <div class="user-message user-message--error">{{errors.form}}</div>
   {{/if}}
 
-<form id="product-form" action="/admin/product-form" method="POST">
-  <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-
+<form id="product-form" action="/admin/product-form" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" value="{{initialValues.title}}" />
@@ -13,10 +11,10 @@
     {{/if}}
   </div>
   <div class="form-group">
-    <label for="image-url">Image URL</label>
-    <input type="text" id="image-url" name="imageURL" value="{{initialValues.imageURL}}" />
-    {{#if errors.imageURL}}
-      <span>{{errors.imageURL}}</span>
+    <label for="image">Image</label>
+    <input type="file" accept="image/*" id="image" name="image" />
+    {{#if errors.image}}
+      <span>{{errors.image}}</span>
     {{/if}}
   </div>
   <div class="form-group">

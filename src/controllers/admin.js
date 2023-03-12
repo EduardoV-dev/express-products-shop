@@ -1,6 +1,7 @@
+const fs = require('fs');
 const { validationResult } = require('express-validator');
 const Product = require('../models/product');
-const { getFieldErrorMessageFromErrors } = require('../utils');
+const { getFieldErrorMessageFromErrors, removeProductImageFromBucket } = require('../utils');
 
 exports.getAdminProducts = async (req, res, next) => {
     try {
@@ -56,35 +57,39 @@ exports.getAddProductView = (req, res) =>
         },
     });
 
-exports.postProduct = (req, res, next) => {
+exports.postProduct = async (req, res, next) => {
     try {
-        const { title, imageURL, price, description } = req.body;
-        const errors = validationResult(req);
+        const { title, price, description } = req.body;
+        const image = req.file;
 
-        if (!errors.isEmpty()) {
+        const errors = validationResult(req);
+        const hasErrors = !errors.isEmpty();
+
+        if (hasErrors || !image) {
             const values = errors.array();
 
             return res.render('admin/add-product-form', {
                 title: 'Add Product | Admin',
                 initialValues: {
                     title,
-                    imageURL,
                     price,
                     description,
                 },
                 errors: {
                     form: null,
-                    title: getFieldErrorMessageFromErrors(values, 'title'),
-                    imageURL: getFieldErrorMessageFromErrors(values, 'imageURL'),
-                    price: getFieldErrorMessageFromErrors(values, 'price'),
-                    description: getFieldErrorMessageFromErrors(values, 'description'),
+                    title: hasErrors ? getFieldErrorMessageFromErrors(values, 'title') : null,
+                    image: 'Image has not been set',
+                    price: hasErrors ? getFieldErrorMessageFromErrors(values, 'price') : null,
+                    description: hasErrors
+                        ? getFieldErrorMessageFromErrors(values, 'description')
+                        : null,
                 },
             });
         }
 
-        new Product({
+        await new Product({
             description,
-            imageURL,
+            imageURL: `product-images/${image.filename}`,
             price: Number(price),
             title,
             userId: req.session.user._id,
@@ -96,20 +101,26 @@ exports.postProduct = (req, res, next) => {
     }
 };
 
-exports.deleteProduct = (req, res, next) => {
+exports.deleteProduct = async (req, res, next) => {
     try {
         const { productId } = req.body;
 
-        Product.findByIdAndDelete(productId);
+        const product = await Product.findById(productId);
+        if (!product) throw new Error('The product attempted to delete does not exists');
+
+        await Product.findByIdAndDelete(productId);
+        removeProductImageFromBucket(product.imageURL);
         return res.redirect('/admin/products');
     } catch (error) {
         return next(error);
     }
 };
 
-exports.editProduct = (req, res, next) => {
+exports.editProduct = async (req, res, next) => {
     try {
-        const { title, imageURL, price, description, productId } = req.body;
+        const { title, price, description, productId } = req.body;
+        const image = req.file;
+
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -117,22 +128,23 @@ exports.editProduct = (req, res, next) => {
 
             return res.render('admin/edit-product-form', {
                 title: 'Edit product',
-                product: { title, imageURL, price, description, _id: productId },
+                product: { title, price, description, _id: productId },
                 errors: {
                     form: null,
                     title: getFieldErrorMessageFromErrors(values, 'title'),
-                    imageURL: getFieldErrorMessageFromErrors(values, 'imageURL'),
                     price: getFieldErrorMessageFromErrors(values, 'price'),
                     description: getFieldErrorMessageFromErrors(values, 'description'),
                 },
             });
         }
 
-        Product.findByIdAndUpdate(productId, {
+        await Product.findByIdAndUpdate(productId, {
             description,
-            imageURL,
             price: Number(price),
             title,
+            ...(image && {
+                imageURL: `product-images/${image.filename}`,
+            }),
         });
         return res.redirect('/admin/products');
     } catch (error) {

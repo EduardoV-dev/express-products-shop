@@ -49,7 +49,6 @@
           {{#if isLoggedIn}}
             <li>
               <form action="/auth/logout" method="post">
-                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
                 <button type="submit">Logout</button>
               </form>
             </li>

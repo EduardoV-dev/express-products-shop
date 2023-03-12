@@ -1,11 +1,10 @@
 <div class="card" style="margin-inline: auto;">
   <h3>{{product.title}}</h3>
-  <img src="{{product.imageURL}}" alt="{{product.title}}" />
+  <img src="/{{product.imageURL}}" alt="{{product.title}}" />
   <span>$ {{product.price}}</span>
   <p>{{product.description}}</p>
 
   <form method="POST" action="/shop/cart">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
     <input type="hidden" name="productId" value="{{product._id}}" />
 
     {{#if isLoggedIn}}

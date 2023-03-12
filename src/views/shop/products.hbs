@@ -3,15 +3,14 @@
     {{#each products}}
       <div class="card">
         <h3>{{title}}</h3>
-        <img src="{{imageURL}}" alt="{{title}}" />
+        <img src="/{{imageURL}}" alt="{{title}}" />
         <span>$ {{price}}</span>
         <p>{{description}}</p>
         <div class="card-actions">
           <a class="btn btn-primary" href="/shop/products/{{_id}}">Details</a>
           <form action="/shop/cart" method="POST">
-            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <input name="productId" type="hidden" value="{{_id}}" />
-            {{#if isLoggedIn}}
+            {{#if ../isLoggedIn}}
               <button type="submit" class="btn btn-primary">Add to Cart</a>
             {{/if}}
           </form>

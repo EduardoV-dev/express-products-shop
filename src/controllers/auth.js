@@ -43,14 +43,12 @@ exports.postLogin = async (req, res, next) => {
         }
 
         const user = await User.findOne({ email: email.trim() });
-
         if (!user) {
             req.flash('login-error', 'There is no user with the provided email');
             return res.redirect('/auth/login');
         }
 
         const doPasswordsMatch = await bcrypt.compare(password.trim(), user.password);
-
         if (!doPasswordsMatch) {
             req.flash('login-error', 'Invalid password');
             return res.redirect('/auth/login');
@@ -109,7 +107,6 @@ exports.postSignup = async (req, res, next) => {
         const accountExists = await User.findOne({
             email,
         });
-
         if (accountExists) {
             req.flash('sign-up-error', 'The email is already being used');
             return res.redirect('/auth/signup');
@@ -117,13 +114,13 @@ exports.postSignup = async (req, res, next) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        new User({
+        await new User({
             cart: [],
             email,
             password: hashedPassword,
         }).save();
 
-        mailer.send({
+        await mailer.send({
             html: `<h1>You have created an account successfully!</h1>`,
             subject: 'Account Created',
             to: email,
@@ -159,8 +156,8 @@ exports.postResetPassword = async (req, res, next) => {
             token: passwordResetToken,
         };
 
-        user.save();
-        mailer.send({
+        await user.save();
+        await mailer.send({
             to: email,
             html: `
                 <h1>Password reset for your account in Shop.</h1>
@@ -220,8 +217,8 @@ exports.postNewPassword = async (req, res, next) => {
         user.password = hashedNewPassword;
         user.passwordReset = undefined;
 
-        user.save();
-        mailer.send({
+        await user.save();
+        await mailer.send({
             html: '<h1>You changed your password successfully!</h1>',
             subject: 'Password change',
             to: user.email,

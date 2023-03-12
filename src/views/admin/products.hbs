@@ -3,14 +3,13 @@
     {{#each products}}
       <div class="card">
         <h3>{{title}}</h3>
-        <img src="{{imageURL}}" alt="{{title}}" />
+        <img src="/{{imageURL}}" alt="{{title}}" />
         <span>$ {{price}}</span>
         <p>{{description}}</p>
         <div class="card-actions">
           <a href="/admin/product-form/{{_id}}" class="btn btn-primary">Edit</a>
 
           <form action="/admin/products/delete" method="POST">
-            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
             <input type="hidden" name="productId" value="{{_id}}" />
             <button class="btn btn-danger" type="submit">Delete</button>
           </form>
