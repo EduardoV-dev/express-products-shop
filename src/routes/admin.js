@@ -9,7 +9,7 @@ const router = express.Router();
 
 /* Products */
 router.get('/products', controller.getAdminProducts);
-router.post('/products/delete', controller.deleteProduct);
+router.delete('/products/:productId', controller.deleteProduct);
 
 const productFormValidations = [
     body('title', 'Title cannot be empty').trim().exists({ checkFalsy: true }),

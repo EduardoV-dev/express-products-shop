@@ -115,18 +115,18 @@ exports.postProduct = async (req, res, next) => {
     }
 };
 
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = async (req, res) => {
     try {
-        const { productId } = req.body;
+        const { productId } = req.params;
 
         const product = await Product.findById(productId);
         if (!product) throw new Error('The product attempted to delete does not exists');
 
         await Product.findByIdAndDelete(productId);
         removeProductImageFromBucket(product.imageURL);
-        return res.redirect('/admin/products');
+        return res.json({ message: 'Product deleted' });
     } catch (error) {
-        return next(error);
+        return res.json({ message: 'Product deletion failed' });
     }
 };
 

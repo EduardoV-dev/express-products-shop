@@ -1,7 +1,7 @@
 {{#if products.length}}
   <div class="grid">
       {{#each products}}
-        <div class="card">
+        <article class="card">
           <h3>{{title}}</h3>
           <img src="/{{imageURL}}" alt="{{title}}" />
           <span>$ {{price}}</span>
@@ -9,11 +9,9 @@
           <div class="card-actions">
             <a href="/admin/product-form/{{_id}}" class="btn btn-primary">Edit</a>
 
-            <form action="/admin/products/delete" method="POST">
-              <input type="hidden" name="productId" value="{{_id}}" />
-              <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
-          </div>
+            <input type="hidden" name="productId" value="{{_id}}" />
+            <button class="btn btn-danger" onclick="deleteProduct(this)" type="button" >Delete</button>
+          </article>
         </div>
       {{/each}}
   </div>
@@ -29,3 +27,5 @@
 {{else}}
   <h2>No products to show</h2>
 {{/if}}
+
+<script src="/js/admin.js"></script>
